@@ -6,7 +6,9 @@ typedef struct
 {
     int x;
     int y;
-} ParOrdenado;
+} Elemento;
+
+int associaElementoACasa(int elementos[], int elemento, int numeroDeElementos);
 
 int main()
 {
@@ -18,7 +20,7 @@ int main()
         exit(1);
     }
     int quantidadeDeRelacoes = 0;
-    ParOrdenado relacoes[TAMANHO_MAXIMO_ARQUIVO];
+    Elemento relacoes[TAMANHO_MAXIMO_ARQUIVO];
     int numeroDeElementos;
     fscanf(ponteiroArquivo, "%d", &numeroDeElementos);
     int elementos[numeroDeElementos];
@@ -34,15 +36,44 @@ int main()
         quantidadeDeRelacoes++;
     }
 
+    int matrizDeRelacoes[numeroDeElementos][numeroDeElementos];
+
     for (int i = 0; i < numeroDeElementos; i++)
     {
-        printf("%d\n", elementos[i]);
+        for (int j = 0; j < numeroDeElementos; j++)
+        {
+            matrizDeRelacoes[i][j] = 0;
+        }
     }
 
     for (int i = 0; i < quantidadeDeRelacoes; i++)
     {
-        printf("x: %d y: %d \n", relacoes[i].x, relacoes[i].y);
+        int origem = associaElementoACasa(elementos, relacoes[i].x, numeroDeElementos);
+        int destino = associaElementoACasa(elementos, relacoes[i].y, numeroDeElementos);
+        matrizDeRelacoes[origem][destino] = 1;
     }
 
+    for (int i = 0; i < numeroDeElementos; i++)
+    {
+
+        for (int j = 0; j < numeroDeElementos; j++)
+        {
+            printf("%d  ", matrizDeRelacoes[i][j]);
+        }
+        printf("\n");
+    }
+
+    fclose(ponteiroArquivo);
     return 0;
+}
+
+int associaElementoACasa(int elementos[], int elemento, int numeroDeElementos)
+{
+    for (int casa = 0; casa < numeroDeElementos; casa++)
+    {
+        if (elemento == elementos[casa])
+        {
+            return casa;
+        }
+    }
 }
