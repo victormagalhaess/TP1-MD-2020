@@ -8,6 +8,8 @@ typedef struct
     int y;
 } ParOrdenado;
 
+int associaElementoACasa(int elementos[], int elemento, int numeroDeElementos);
+
 int main()
 {
 
@@ -34,15 +36,44 @@ int main()
         quantidadeDeRelacoes++;
     }
 
+    fclose(ponteiroArquivo);
+
+    int matrizDeRelacoes[numeroDeElementos][numeroDeElementos];
+
     for (int i = 0; i < numeroDeElementos; i++)
     {
-        printf("%d\n", elementos[i]);
+        for (int j = 0; j < numeroDeElementos; j++)
+        {
+            matrizDeRelacoes[i][j] = 0;
+        }
     }
 
     for (int i = 0; i < quantidadeDeRelacoes; i++)
     {
-        printf("x: %d y: %d \n", relacoes[i].x, relacoes[i].y);
+        int origem = associaElementoACasa(elementos, relacoes[i].x, numeroDeElementos);
+        int destino = associaElementoACasa(elementos, relacoes[i].y, numeroDeElementos);
+        matrizDeRelacoes[origem][destino] = 1;
     }
 
+    for (int i = 0; i < numeroDeElementos; i++)
+    {
+
+        for (int j = 0; j < numeroDeElementos; j++)
+        {
+            printf("%d  ", matrizDeRelacoes[i][j]);
+        }
+        printf("\n");
+    }
     return 0;
+}
+
+int associaElementoACasa(int elementos[], int elemento, int numeroDeElementos)
+{
+    for (int casa = 0; casa < numeroDeElementos; casa++)
+    {
+        if (elemento == elementos[casa])
+        {
+            return casa;
+        }
+    }
 }
