@@ -6,7 +6,7 @@ typedef struct
 {
     int x;
     int y;
-} ParOrdenado;
+} Elemento;
 
 int associaElementoACasa(int elementos[], int elemento, int numeroDeElementos);
 
@@ -20,7 +20,7 @@ int main()
         exit(1);
     }
     int quantidadeDeRelacoes = 0;
-    ParOrdenado relacoes[TAMANHO_MAXIMO_ARQUIVO];
+    Elemento relacoes[TAMANHO_MAXIMO_ARQUIVO];
     int numeroDeElementos;
     fscanf(ponteiroArquivo, "%d", &numeroDeElementos);
     int elementos[numeroDeElementos];
@@ -35,8 +35,6 @@ int main()
         fscanf(ponteiroArquivo, "%d %d", &relacoes[quantidadeDeRelacoes].x, &relacoes[quantidadeDeRelacoes].y);
         quantidadeDeRelacoes++;
     }
-
-    fclose(ponteiroArquivo);
 
     int matrizDeRelacoes[numeroDeElementos][numeroDeElementos];
 
@@ -64,6 +62,8 @@ int main()
         }
         printf("\n");
     }
+
+    fclose(ponteiroArquivo);
     return 0;
 }
 
