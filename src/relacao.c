@@ -195,6 +195,7 @@ int main()
                         faltamParaSerTransitiva[numeroDeFaltamParaSerTransitivo].y = elementos[k];
                         numeroDeFaltamParaSerTransitivo++;
                     }
+                    elementoJaListado = 0;
                 }
             }
         }
