@@ -172,6 +172,7 @@ int main()
     int EhTransitiva = 1;
     int numeroDeFaltamParaSerTransitivo = 0;
     Elemento faltamParaSerTransitiva[quantidadeDeRelacoes];
+    int elementoJaListado = 0;
     for (int i = 0; i < numeroDeElementos; i++)
     {
         for (int j = 0; j < numeroDeElementos; j++)
@@ -180,10 +181,20 @@ int main()
             {
                 if (matrizDeRelacoes[i][j] && matrizDeRelacoes[j][k] && !matrizDeRelacoes[i][k])
                 {
-                    EhTransitiva = 0;
-                    faltamParaSerTransitiva[numeroDeFaltamParaSerTransitivo].x = elementos[i];
-                    faltamParaSerTransitiva[numeroDeFaltamParaSerTransitivo].y = elementos[k];
-                    numeroDeFaltamParaSerTransitivo++;
+                    for (int x = 0; x < numeroDeFaltamParaSerTransitivo; x++)
+                    {
+                        if (faltamParaSerTransitiva[x].x == elementos[i] && faltamParaSerTransitiva[x].y == elementos[k])
+                        {
+                            elementoJaListado = 1;
+                        }
+                    }
+                    if (!elementoJaListado)
+                    {
+                        EhTransitiva = 0;
+                        faltamParaSerTransitiva[numeroDeFaltamParaSerTransitivo].x = elementos[i];
+                        faltamParaSerTransitiva[numeroDeFaltamParaSerTransitivo].y = elementos[k];
+                        numeroDeFaltamParaSerTransitivo++;
+                    }
                 }
             }
         }
