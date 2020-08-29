@@ -1,3 +1,9 @@
+/* VICTOR HUGO FARIA DIAS MAGALHÃES - 2019055010
+// COMPLEXIDADE O(n³)
+// FEITO E TESTADO NO UBUNTU 18.0.4 LTS gcc 7.5.0
+// COMANDO PARA EXECUTAR NO UBUNTU: g++ relacao.c -o relacao && ./relacao
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #define TAMANHO_MAXIMO_ARQUIVO 1000
@@ -12,7 +18,6 @@ int associaElementoACasa(int elementos[], int elemento, int numeroDeElementos);
 
 int main()
 {
-
     FILE *ponteiroArquivo;
     if ((ponteiroArquivo = fopen("input.txt", "r")) == NULL)
     {
@@ -46,6 +51,8 @@ int main()
         }
     }
 
+    fclose(ponteiroArquivo);
+
     for (int i = 0; i < quantidadeDeRelacoes; i++)
     {
         int origem = associaElementoACasa(elementos, relacoes[i].x, numeroDeElementos);
@@ -70,20 +77,6 @@ int main()
             numeroDeFaltamParaSerReflexiva++;
         }
     }
-    printf("1. Reflexiva: ");
-    if (EhReflexiva)
-    {
-        printf("V\n");
-    }
-    else
-    {
-        printf("F\n   ");
-        for (int i = 0; i < numeroDeFaltamParaSerReflexiva; i++)
-        {
-            printf("(%d, %d); ", faltaParaSerReflexiva[i].x, faltaParaSerReflexiva[i].y);
-        }
-        printf("\n");
-    }
 
     //VERIFICAR SE É IRREFLEXIVA
     Elemento faltaParaSerIrreflexiva[numeroDeElementos];
@@ -98,20 +91,6 @@ int main()
             faltaParaSerIrreflexiva[numeroDeFaltamParaSerIrreflexiva].y = elementos[i];
             numeroDeFaltamParaSerIrreflexiva++;
         }
-    }
-    printf("2. Irreflexiva: ");
-    if (EhIrreflexiva)
-    {
-        printf("V\n");
-    }
-    else
-    {
-        printf("F\n   ");
-        for (int i = 0; i < numeroDeFaltamParaSerIrreflexiva; i++)
-        {
-            printf("(%d, %d); ", faltaParaSerIrreflexiva[i].x, faltaParaSerIrreflexiva[i].y);
-        }
-        printf("\n");
     }
 
     //VERIFICA SE É SIMÉTRICA
@@ -133,21 +112,6 @@ int main()
                 }
             }
         }
-    }
-
-    printf("3. Simétrica: ");
-    if (EhSimetrica)
-    {
-        printf("V\n");
-    }
-    else
-    {
-        printf("F\n   ");
-        for (int i = 0; i < numeroDeFaltamParaSerSimetrica; i++)
-        {
-            printf("(%d, %d); ", faltaParaSerSimetrica[i].x, faltaParaSerSimetrica[i].y);
-        }
-        printf("\n");
     }
 
     //VERIFICA SE É ANTI-SIMÉTRICA
@@ -183,21 +147,6 @@ int main()
         }
     }
 
-    printf("4. Anti-simétrica: ");
-    if (EhAntisimetrica)
-    {
-        printf("V\n");
-    }
-    else
-    {
-        printf("F\n   ");
-        for (int i = 0; i < numeroDeFaltamParaSerAntisimetrica; i++)
-        {
-            printf("(%d, %d) e (%d, %d); ", faltaParaSerAntisimetrica[i].x, faltaParaSerAntisimetrica[i].y, faltaParaSerAntisimetrica[i].y, faltaParaSerAntisimetrica[i].x);
-        }
-        printf("\n");
-    }
-
     //VERIFICA SE É ASSIMÉTRICA
     int EhAssimetrica = 1;
     Elemento faltaParaSerAssimetrica[quantidadeDeRelacoes];
@@ -219,6 +168,97 @@ int main()
         }
     }
 
+    //VERIFICA SE É TRANSITIVA
+    int EhTransitiva = 1;
+    int numeroDeFaltamParaSerTransitivo = 0;
+    Elemento faltamParaSerTransitiva[quantidadeDeRelacoes];
+    for (int i = 0; i < numeroDeElementos; i++)
+    {
+        for (int j = 0; j < numeroDeElementos; j++)
+        {
+            for (int k = 0; k < numeroDeElementos; k++)
+            {
+                if (matrizDeRelacoes[i][j] && matrizDeRelacoes[j][k] && !matrizDeRelacoes[i][k])
+                {
+                    EhTransitiva = 0;
+                    faltamParaSerTransitiva[numeroDeFaltamParaSerTransitivo].x = elementos[i];
+                    faltamParaSerTransitiva[numeroDeFaltamParaSerTransitivo].y = elementos[k];
+                    numeroDeFaltamParaSerTransitivo++;
+                }
+            }
+        }
+    }
+    //VERIFICAR SE É EQUIVALENCIA
+    char equivalencia = (EhReflexiva && EhSimetrica && EhTransitiva) ? 'V' : 'F';
+
+    //VERIFICAR SE É ORDEM PARCIAL
+    char parcial = (EhReflexiva && EhAntisimetrica && EhTransitiva) ? 'V' : 'F';
+
+    //PRINT SE É REFLEXIVA
+    printf("1. Reflexiva: ");
+    if (EhReflexiva)
+    {
+        printf("V\n");
+    }
+    else
+    {
+        printf("F\n   ");
+        for (int i = 0; i < numeroDeFaltamParaSerReflexiva; i++)
+        {
+            printf("(%d, %d); ", faltaParaSerReflexiva[i].x, faltaParaSerReflexiva[i].y);
+        }
+        printf("\n");
+    }
+
+    // PRINT SE É IRREFLEXIVA
+    printf("2. Irreflexiva: ");
+    if (EhIrreflexiva)
+    {
+        printf("V\n");
+    }
+    else
+    {
+        printf("F\n   ");
+        for (int i = 0; i < numeroDeFaltamParaSerIrreflexiva; i++)
+        {
+            printf("(%d, %d); ", faltaParaSerIrreflexiva[i].x, faltaParaSerIrreflexiva[i].y);
+        }
+        printf("\n");
+    }
+
+    //PRINT SE É SIMÉTRICA
+    printf("3. Simétrica: ");
+    if (EhSimetrica)
+    {
+        printf("V\n");
+    }
+    else
+    {
+        printf("F\n   ");
+        for (int i = 0; i < numeroDeFaltamParaSerSimetrica; i++)
+        {
+            printf("(%d, %d); ", faltaParaSerSimetrica[i].x, faltaParaSerSimetrica[i].y);
+        }
+        printf("\n");
+    }
+
+    //PRINT SE É ANTI-SIMÉTRICA
+    printf("4. Anti-simétrica: ");
+    if (EhAntisimetrica)
+    {
+        printf("V\n");
+    }
+    else
+    {
+        printf("F\n   ");
+        for (int i = 0; i < numeroDeFaltamParaSerAntisimetrica; i++)
+        {
+            printf("(%d, %d) e (%d, %d); ", faltaParaSerAntisimetrica[i].x, faltaParaSerAntisimetrica[i].y, faltaParaSerAntisimetrica[i].y, faltaParaSerAntisimetrica[i].x);
+        }
+        printf("\n");
+    }
+
+    //PRINT SE É ASSIMÉTRICA
     printf("5. Assimétrica: ");
     if (EhAssimetrica)
     {
@@ -234,7 +274,47 @@ int main()
         printf("\n");
     }
 
-    fclose(ponteiroArquivo);
+    //PRINT SE É TRANSITIVA
+    printf("6. Transitiva: ");
+    if (EhTransitiva)
+    {
+        printf("V\n");
+    }
+    else
+    {
+        printf("F\n   ");
+        for (int i = 0; i < numeroDeFaltamParaSerTransitivo; i++)
+        {
+            printf("(%d, %d); ", faltamParaSerTransitiva[i].x, faltamParaSerTransitiva[i].y);
+        }
+        printf("\n");
+    }
+
+    //PRINT SE É EQUIVALENCIA
+    printf("\nRelação de equivalência: %c\n", equivalencia);
+
+    //PRINT SE É ORDEM PARCIAL
+    printf("Relação de ordem parcial: %c\n\n", parcial);
+
+    //PRINT O FECHO TRANSITIVO
+    printf("Fecho transitivo da relação: {");
+    for (int i = 0; i < quantidadeDeRelacoes; i++)
+    {
+        printf("(%d, %d), ", relacoes[i].x, relacoes[i].y);
+    }
+    for (int i = 0; i < numeroDeFaltamParaSerTransitivo; i++)
+    {
+        if (i != numeroDeFaltamParaSerTransitivo - 1)
+        {
+            printf("(%d, %d), ", faltamParaSerTransitiva[i].x, faltamParaSerTransitiva[i].y);
+        }
+        else
+        {
+            printf("(%d, %d)", faltamParaSerTransitiva[i].x, faltamParaSerTransitiva[i].y);
+        }
+    }
+    printf("} \n");
+
     return 0;
 }
 
