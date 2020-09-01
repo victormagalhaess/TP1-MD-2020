@@ -1,0 +1,27 @@
+INSTRUÇÕES PARA EXECUÇÃO DO CÓDIGO
+O código foi desenvolvido em C e testado no Ubuntu 18.0.4 LTS, usando o gcc 7.5.0
+Para executar o código com sucesso, introduza as entradas no arquivo "input.txt".
+As entradas devem seguir o seguinte padrão:
+
+6 10 9 8 7 6 5
+10 8
+8 7
+6 5
+
+Onde o primeiro número da primeira linha representa a quantidade de números que virão em sequência na primeira linha.
+Os números subsequentes da primeira linha serão os números utilizados nas relações.
+Cada uma das outras linhas representa um par ordenado X, Y que representam uma relação de X para Y.
+
+Atenção: Não insira as entradas de forma incorreta, ou insira relações com valores que não foram listados na primeira linha, essas
+situações não foram cobertas e não funcionarão corretamente podendo causar instabilidades ou saídas inesperadas.
+
+Para executar o programa compile o código fonte, em seguida altere o arquivo input.txt com sua entrada e por fim execute o arquivo compilado.
+P.S. Se assegure de manter o executável e o arquivo input.txt no *mesmo* diretório.
+
+O código fonte não foi testado no Windows e não é garantido seu funcionamento usando o Mingw.
+O código fonte não foi testado em nenhuma IDE como code:Blocks ou devC++ e portanto seu funcionamento não é garantido.
+É fortemente recomendada a execução do código fonte no Ubuntu 18.0.4 LTS utilizando o gcc 7.5.0.
+
+Primeiramente, navegue até o diretório onde estão os arquivos e em seguida no terminal: 
+Para compilar no ubuntu, o g++ pode ser utilizado: g++ relacao.c -o relacao
+Para executar no ubuntu: ./relacao

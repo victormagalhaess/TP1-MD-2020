@@ -65,13 +65,13 @@ int main()
 
     //VERIFICAR SE É REFLEXIVA
     Elemento faltaParaSerReflexiva[numeroDeElementos];
-    int EhReflexiva = 1;
+    int Reflexiva = 1;
     int numeroDeFaltamParaSerReflexiva = 0;
     for (int i = 0; i < numeroDeElementos; i++)
     {
         if (!(matrizDeRelacoes[i][i]))
         {
-            EhReflexiva = 0;
+            Reflexiva = 0;
             faltaParaSerReflexiva[numeroDeFaltamParaSerReflexiva].x = elementos[i];
             faltaParaSerReflexiva[numeroDeFaltamParaSerReflexiva].y = elementos[i];
             numeroDeFaltamParaSerReflexiva++;
@@ -80,13 +80,13 @@ int main()
 
     //VERIFICAR SE É IRREFLEXIVA
     Elemento faltaParaSerIrreflexiva[numeroDeElementos];
-    int EhIrreflexiva = 1;
+    int Irreflexiva = 1;
     int numeroDeFaltamParaSerIrreflexiva = 0;
     for (int i = 0; i < numeroDeElementos; i++)
     {
         if ((matrizDeRelacoes[i][i]))
         {
-            EhIrreflexiva = 0;
+            Irreflexiva = 0;
             faltaParaSerIrreflexiva[numeroDeFaltamParaSerIrreflexiva].x = elementos[i];
             faltaParaSerIrreflexiva[numeroDeFaltamParaSerIrreflexiva].y = elementos[i];
             numeroDeFaltamParaSerIrreflexiva++;
@@ -94,7 +94,7 @@ int main()
     }
 
     //VERIFICA SE É SIMÉTRICA
-    int EhSimetrica = 1;
+    int Simetrica = 1;
     Elemento faltaParaSerSimetrica[quantidadeDeRelacoes];
     int numeroDeFaltamParaSerSimetrica = 0;
     for (int i = 0; i < numeroDeElementos; i++)
@@ -105,7 +105,7 @@ int main()
             {
                 if (!matrizDeRelacoes[j][i])
                 {
-                    EhSimetrica = 0;
+                    Simetrica = 0;
                     faltaParaSerSimetrica[numeroDeFaltamParaSerSimetrica].x = elementos[j];
                     faltaParaSerSimetrica[numeroDeFaltamParaSerSimetrica].y = elementos[i];
                     numeroDeFaltamParaSerSimetrica++;
@@ -115,7 +115,7 @@ int main()
     }
 
     //VERIFICA SE É ANTI-SIMÉTRICA
-    int EhAntisimetrica = 1;
+    int Antisimetrica = 1;
     Elemento faltaParaSerAntisimetrica[quantidadeDeRelacoes];
     int numeroDeFaltamParaSerAntisimetrica = 0;
     int elementoJaContado = 0;
@@ -136,7 +136,7 @@ int main()
                     }
                     if (!elementoJaContado)
                     {
-                        EhAntisimetrica = 0;
+                        Antisimetrica = 0;
                         faltaParaSerAntisimetrica[numeroDeFaltamParaSerAntisimetrica].x = elementos[j];
                         faltaParaSerAntisimetrica[numeroDeFaltamParaSerAntisimetrica].y = elementos[i];
                         numeroDeFaltamParaSerAntisimetrica++;
@@ -148,7 +148,7 @@ int main()
     }
 
     //VERIFICA SE É ASSIMÉTRICA
-    int EhAssimetrica = 1;
+    int Assimetrica = 1;
     Elemento faltaParaSerAssimetrica[quantidadeDeRelacoes];
     int numeroDeFaltamParaSerAssimetrica = 0;
     for (int i = 0; i < numeroDeElementos; i++)
@@ -159,7 +159,7 @@ int main()
             {
                 if (matrizDeRelacoes[j][i])
                 {
-                    EhAssimetrica = 0;
+                    Assimetrica = 0;
                     faltaParaSerAssimetrica[numeroDeFaltamParaSerAssimetrica].x = elementos[j];
                     faltaParaSerAssimetrica[numeroDeFaltamParaSerAssimetrica].y = elementos[i];
                     numeroDeFaltamParaSerAssimetrica++;
@@ -169,7 +169,7 @@ int main()
     }
 
     //VERIFICA SE É TRANSITIVA
-    int EhTransitiva = 1;
+    int Transitiva = 1;
     int numeroDeFaltamParaSerTransitivo = 0;
     Elemento faltamParaSerTransitiva[quantidadeDeRelacoes];
     int elementoJaListado = 0;
@@ -190,7 +190,7 @@ int main()
                     }
                     if (!elementoJaListado)
                     {
-                        EhTransitiva = 0;
+                        Transitiva = 0;
                         faltamParaSerTransitiva[numeroDeFaltamParaSerTransitivo].x = elementos[i];
                         faltamParaSerTransitiva[numeroDeFaltamParaSerTransitivo].y = elementos[k];
                         numeroDeFaltamParaSerTransitivo++;
@@ -201,14 +201,14 @@ int main()
         }
     }
     //VERIFICAR SE É EQUIVALENCIA
-    char equivalencia = (EhReflexiva && EhSimetrica && EhTransitiva) ? 'V' : 'F';
+    char equivalencia = (Reflexiva && Simetrica && Transitiva) ? 'V' : 'F';
 
     //VERIFICAR SE É ORDEM PARCIAL
-    char parcial = (EhReflexiva && EhAntisimetrica && EhTransitiva) ? 'V' : 'F';
+    char parcial = (Reflexiva && Antisimetrica && Transitiva) ? 'V' : 'F';
 
     //PRINT SE É REFLEXIVA
     printf("1. Reflexiva: ");
-    if (EhReflexiva)
+    if (Reflexiva)
     {
         printf("V\n");
     }
@@ -224,7 +224,7 @@ int main()
 
     // PRINT SE É IRREFLEXIVA
     printf("2. Irreflexiva: ");
-    if (EhIrreflexiva)
+    if (Irreflexiva)
     {
         printf("V\n");
     }
@@ -240,7 +240,7 @@ int main()
 
     //PRINT SE É SIMÉTRICA
     printf("3. Simétrica: ");
-    if (EhSimetrica)
+    if (Simetrica)
     {
         printf("V\n");
     }
@@ -256,7 +256,7 @@ int main()
 
     //PRINT SE É ANTI-SIMÉTRICA
     printf("4. Anti-simétrica: ");
-    if (EhAntisimetrica)
+    if (Antisimetrica)
     {
         printf("V\n");
     }
@@ -272,7 +272,7 @@ int main()
 
     //PRINT SE É ASSIMÉTRICA
     printf("5. Assimétrica: ");
-    if (EhAssimetrica)
+    if (Assimetrica)
     {
         printf("V\n");
     }
@@ -288,7 +288,7 @@ int main()
 
     //PRINT SE É TRANSITIVA
     printf("6. Transitiva: ");
-    if (EhTransitiva)
+    if (Transitiva)
     {
         printf("V\n");
     }
