@@ -339,4 +339,5 @@ int associaElementoACasa(int elementos[], int elemento, int numeroDeElementos)
             return casa;
         }
     }
+    return -1;
 }
