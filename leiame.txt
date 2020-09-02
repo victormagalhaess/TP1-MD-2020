@@ -1,6 +1,8 @@
 INSTRUÇÕES PARA EXECUÇÃO DO CÓDIGO
 O código foi desenvolvido em C e testado no Ubuntu 18.0.4 LTS, usando o gcc 7.5.0
 Para executar o código com sucesso, introduza as entradas no arquivo "input.txt".
+A entrada não deve possuir mais que 1000 números (espaços e enters não são contabilizados).
+É possível alterar o limite máximo da entrada alterando a constante TAMANHO_MAXIMO_ARQUIVO no código fonte.
 As entradas devem seguir o seguinte padrão:
 
 6 10 9 8 7 6 5
