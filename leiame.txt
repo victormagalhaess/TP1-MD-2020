@@ -1,10 +1,10 @@
 INSTRUÇÕES PARA EXECUÇÃO DO CÓDIGO
 O código foi desenvolvido em C e testado no Ubuntu 18.0.4 LTS, usando o gcc 7.5.0
 Para executar o código com sucesso, introduza as entradas no arquivo "input.txt".
-A entrada não deve possuir mais que 1000 relações.
+A entrada não deve possuir mais que 5000 relações.
 É possível alterar o limite máximo da entrada alterando a constante TAMANHO_MAXIMO_ARQUIVO no código fonte.
 Entretanto, a estabilidade não é garantida para um número de relações de entrada excessivamente grande.
-As entradas devem seguir o seguinte padrão:
+As entradas devem seguir o seguinte padrão que pode ser encontrado também no pdf que descreve o TP:
 
 6 10 9 8 7 6 5
 10 8
@@ -18,13 +18,15 @@ Cada uma das outras linhas representa um par ordenado X, Y que representam uma r
 Atenção: Não insira as entradas de forma incorreta, ou insira relações com valores que não foram listados na primeira linha, essas
 situações não foram cobertas e não funcionarão corretamente podendo causar instabilidades ou saídas inesperadas.
 
+*NÃO INSIRA ENTRADAS COM ESPAÇOS EM BRANCO NO FIM DO ARQUIVO, O ÚLTIMO CARACTERE DEVE SER O ÚLTIMO NÚMERO DA ÚLTIMA RELAÇÃO*
+
 Para executar o programa compile o código fonte, em seguida altere o arquivo input.txt com sua entrada e por fim execute o arquivo compilado.
 P.S. Se assegure de manter o executável e o arquivo input.txt no *mesmo* diretório.
 
-O código fonte não foi testado no Windows e não é garantido seu funcionamento usando o Mingw.
-O código fonte não foi testado em nenhuma IDE como code:Blocks ou devC++ e portanto seu funcionamento não é garantido.
-É fortemente recomendada a execução do código fonte no Ubuntu 18.0.4 LTS utilizando o gcc 7.5.0.
+O código fonte não foi testado no Windows.
+O código fonte não foi testado em nenhuma IDE como code:Blocks e portanto seu funcionamento não é garantido.
+É recomendada a execução do código fonte no Ubuntu 18.0.4 LTS utilizando o gcc 7.5.0 ou superior.
 
 Primeiramente, navegue até o diretório onde estão os arquivos e em seguida no terminal: 
-Para compilar no ubuntu, o g++ pode ser utilizado: g++ relacao.c -o relacao
+Para compilar no ubuntu, o gcc pode ser utilizado: gcc relacao.c -o relacao
 Para executar no ubuntu: ./relacao
