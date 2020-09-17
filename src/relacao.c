@@ -1,12 +1,6 @@
-/* VICTOR HUGO FARIA DIAS MAGALHÃES - 2019055010
-// COMPLEXIDADE O(n^4)
-// FEITO E TESTADO NO UBUNTU 18.0.4 LTS gcc 7.5.0
-// COMANDO PARA EXECUTAR NO UBUNTU: g++ relacao.c -o relacao && ./relacao
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
-#define TAMANHO_MAXIMO_ARQUIVO 1000
+#define TAMANHO_MAXIMO_ARQUIVO 5000
 
 typedef struct
 {
@@ -19,11 +13,7 @@ int associaElementoACasa(int elementos[], int elemento, int numeroDeElementos);
 int main()
 {
     FILE *ponteiroArquivo;
-    if ((ponteiroArquivo = fopen("input.txt", "r")) == NULL)
-    {
-        printf("Arquivo não encontrado, cheque se o arquivo input.txt está na mesma pasta que o executável!");
-        exit(1);
-    }
+    ponteiroArquivo = fopen("input.txt", "r");
     int quantidadeDeRelacoes = 0;
     Elemento relacoes[TAMANHO_MAXIMO_ARQUIVO];
     int numeroDeElementos;
@@ -60,12 +50,17 @@ int main()
         matrizDeRelacoes[origem][destino] = 1;
     }
 
-    //VERIFICAR PROPRIEDADES
-    printf("Propriedades:\n");
-
-    //VERIFICAR SE É REFLEXIVA
-    Elemento faltaParaSerReflexiva[numeroDeElementos];
+    //flags para verificação das propriedades
     int Reflexiva = 1;
+    int Irreflexiva = 1;
+    int Simetrica = 1;
+    int Antisimetrica = 1;
+    int Assimetrica = 1;
+    int Transitiva = 1;
+
+    //VERIFICA SE É REFLEXIVA
+
+    Elemento faltaParaSerReflexiva[numeroDeElementos];
     int numeroDeFaltamParaSerReflexiva = 0;
     for (int i = 0; i < numeroDeElementos; i++)
     {
@@ -78,9 +73,9 @@ int main()
         }
     }
 
-    //VERIFICAR SE É IRREFLEXIVA
+    //VERIFICA SE É IRREFLEXIVA
+
     Elemento faltaParaSerIrreflexiva[numeroDeElementos];
-    int Irreflexiva = 1;
     int numeroDeFaltamParaSerIrreflexiva = 0;
     for (int i = 0; i < numeroDeElementos; i++)
     {
@@ -94,7 +89,7 @@ int main()
     }
 
     //VERIFICA SE É SIMÉTRICA
-    int Simetrica = 1;
+
     Elemento faltaParaSerSimetrica[quantidadeDeRelacoes];
     int numeroDeFaltamParaSerSimetrica = 0;
     for (int i = 0; i < numeroDeElementos; i++)
@@ -115,10 +110,9 @@ int main()
     }
 
     //VERIFICA SE É ANTI-SIMÉTRICA
-    int Antisimetrica = 1;
+
     Elemento faltaParaSerAntisimetrica[quantidadeDeRelacoes];
     int numeroDeFaltamParaSerAntisimetrica = 0;
-    int elementoJaContado = 0;
     for (int i = 0; i < numeroDeElementos; i++)
     {
         for (int j = 0; j < numeroDeElementos; j++)
@@ -127,28 +121,18 @@ int main()
             {
                 if (matrizDeRelacoes[j][i])
                 {
-                    for (int k = 0; k < numeroDeFaltamParaSerAntisimetrica; k++)
-                    {
-                        if (faltaParaSerAntisimetrica[k].y == elementos[j] && faltaParaSerAntisimetrica[k].x == elementos[i])
-                        {
-                            elementoJaContado = 1;
-                        }
-                    }
-                    if (!elementoJaContado)
-                    {
-                        Antisimetrica = 0;
-                        faltaParaSerAntisimetrica[numeroDeFaltamParaSerAntisimetrica].x = elementos[j];
-                        faltaParaSerAntisimetrica[numeroDeFaltamParaSerAntisimetrica].y = elementos[i];
-                        numeroDeFaltamParaSerAntisimetrica++;
-                    }
-                    elementoJaContado = 0;
+
+                    Antisimetrica = 0;
+                    faltaParaSerAntisimetrica[numeroDeFaltamParaSerAntisimetrica].x = elementos[j];
+                    faltaParaSerAntisimetrica[numeroDeFaltamParaSerAntisimetrica].y = elementos[i];
+                    numeroDeFaltamParaSerAntisimetrica++;
                 }
             }
         }
     }
 
     //VERIFICA SE É ASSIMÉTRICA
-    int Assimetrica = 1;
+
     Elemento faltaParaSerAssimetrica[quantidadeDeRelacoes];
     int numeroDeFaltamParaSerAssimetrica = 0;
     for (int i = 0; i < numeroDeElementos; i++)
@@ -169,10 +153,9 @@ int main()
     }
 
     //VERIFICA SE É TRANSITIVA
-    int Transitiva = 1;
+
     int numeroDeFaltamParaSerTransitivo = 0;
     Elemento faltamParaSerTransitiva[quantidadeDeRelacoes];
-    int elementoJaListado = 0;
     for (int i = 0; i < numeroDeElementos; i++)
     {
         for (int j = 0; j < numeroDeElementos; j++)
@@ -181,25 +164,35 @@ int main()
             {
                 if (matrizDeRelacoes[i][j] && matrizDeRelacoes[j][k] && !matrizDeRelacoes[i][k])
                 {
-                    for (int x = 0; x < numeroDeFaltamParaSerTransitivo; x++)
-                    {
-                        if (faltamParaSerTransitiva[x].x == elementos[i] && faltamParaSerTransitiva[x].y == elementos[k])
-                        {
-                            elementoJaListado = 1;
-                        }
-                    }
-                    if (!elementoJaListado)
-                    {
-                        Transitiva = 0;
-                        faltamParaSerTransitiva[numeroDeFaltamParaSerTransitivo].x = elementos[i];
-                        faltamParaSerTransitiva[numeroDeFaltamParaSerTransitivo].y = elementos[k];
-                        numeroDeFaltamParaSerTransitivo++;
-                    }
-                    elementoJaListado = 0;
+                    Transitiva = 0;
+                    faltamParaSerTransitiva[numeroDeFaltamParaSerTransitivo].x = elementos[i];
+                    faltamParaSerTransitiva[numeroDeFaltamParaSerTransitivo].y = elementos[k];
+                    numeroDeFaltamParaSerTransitivo++;
                 }
             }
         }
     }
+
+    int numeroDeFaltamParaSerTransitivaSemDuplicatas = 0;
+    Elemento faltamParaSerTransitivaSemDuplicatas[numeroDeFaltamParaSerTransitivo];
+    int podeInserir = 1;
+    for (int i = 0; i < numeroDeFaltamParaSerTransitivo; i++)
+    {
+        for (int j = 0; j < numeroDeFaltamParaSerTransitivaSemDuplicatas; j++)
+        {
+            if (faltamParaSerTransitiva[i].x == faltamParaSerTransitivaSemDuplicatas[j].x && faltamParaSerTransitiva[i].y == faltamParaSerTransitivaSemDuplicatas[j].y)
+            {
+                podeInserir = 0;
+            }
+        }
+        if (podeInserir)
+        {
+            faltamParaSerTransitivaSemDuplicatas[numeroDeFaltamParaSerTransitivaSemDuplicatas] = faltamParaSerTransitiva[i];
+            numeroDeFaltamParaSerTransitivaSemDuplicatas++;
+        }
+        podeInserir = 1;
+    }
+
     //VERIFICAR SE É EQUIVALENCIA
     char equivalencia = (Reflexiva && Simetrica && Transitiva) ? 'V' : 'F';
 
@@ -207,125 +200,113 @@ int main()
     char parcial = (Reflexiva && Antisimetrica && Transitiva) ? 'V' : 'F';
 
     //PRINT SE É REFLEXIVA
-    printf("1. Reflexiva: ");
+    printf("Reflexiva: ");
     if (Reflexiva)
     {
         printf("V\n");
     }
     else
     {
-        printf("F\n   ");
+        printf("F\n");
         for (int i = 0; i < numeroDeFaltamParaSerReflexiva; i++)
         {
-            printf("(%d, %d); ", faltaParaSerReflexiva[i].x, faltaParaSerReflexiva[i].y);
+            printf("(%d,%d); ", faltaParaSerReflexiva[i].x, faltaParaSerReflexiva[i].y);
         }
         printf("\n");
     }
 
     // PRINT SE É IRREFLEXIVA
-    printf("2. Irreflexiva: ");
+    printf("Irreflexiva: ");
     if (Irreflexiva)
     {
         printf("V\n");
     }
     else
     {
-        printf("F\n   ");
+        printf("F\n");
         for (int i = 0; i < numeroDeFaltamParaSerIrreflexiva; i++)
         {
-            printf("(%d, %d); ", faltaParaSerIrreflexiva[i].x, faltaParaSerIrreflexiva[i].y);
+            printf("(%d,%d); ", faltaParaSerIrreflexiva[i].x, faltaParaSerIrreflexiva[i].y);
         }
         printf("\n");
     }
 
     //PRINT SE É SIMÉTRICA
-    printf("3. Simétrica: ");
+    printf("Simétrica: ");
     if (Simetrica)
     {
         printf("V\n");
     }
     else
     {
-        printf("F\n   ");
+        printf("F\n");
         for (int i = 0; i < numeroDeFaltamParaSerSimetrica; i++)
         {
-            printf("(%d, %d); ", faltaParaSerSimetrica[i].x, faltaParaSerSimetrica[i].y);
+            printf("(%d,%d); ", faltaParaSerSimetrica[i].x, faltaParaSerSimetrica[i].y);
         }
         printf("\n");
     }
 
     //PRINT SE É ANTI-SIMÉTRICA
-    printf("4. Anti-simétrica: ");
+    printf("Anti-simétrica: ");
     if (Antisimetrica)
     {
         printf("V\n");
     }
     else
     {
-        printf("F\n   ");
+        printf("F\n");
         for (int i = 0; i < numeroDeFaltamParaSerAntisimetrica; i++)
         {
-            printf("(%d, %d) e (%d, %d); ", faltaParaSerAntisimetrica[i].x, faltaParaSerAntisimetrica[i].y, faltaParaSerAntisimetrica[i].y, faltaParaSerAntisimetrica[i].x);
+            printf("(%d,%d); ", faltaParaSerAntisimetrica[i].x, faltaParaSerAntisimetrica[i].y);
         }
         printf("\n");
     }
 
     //PRINT SE É ASSIMÉTRICA
-    printf("5. Assimétrica: ");
+    printf("Assimétrica: ");
     if (Assimetrica)
     {
         printf("V\n");
     }
     else
     {
-        printf("F\n   ");
-        for (int i = 0; i < numeroDeFaltamParaSerAssimetrica; i++)
-        {
-            printf("(%d, %d); ", faltaParaSerAssimetrica[i].x, faltaParaSerAssimetrica[i].y);
-        }
-        printf("\n");
+        printf("F\n"); //Removi o print dos elementos pois mudaram a saída
     }
 
     //PRINT SE É TRANSITIVA
-    printf("6. Transitiva: ");
+    printf("Transitiva: ");
     if (Transitiva)
     {
         printf("V\n");
     }
     else
     {
-        printf("F\n   ");
-        for (int i = 0; i < numeroDeFaltamParaSerTransitivo; i++)
+        printf("F\n");
+        for (int i = 0; i < numeroDeFaltamParaSerTransitivaSemDuplicatas; i++)
         {
-            printf("(%d, %d); ", faltamParaSerTransitiva[i].x, faltamParaSerTransitiva[i].y);
+            printf("(%d,%d); ", faltamParaSerTransitivaSemDuplicatas[i].x, faltamParaSerTransitivaSemDuplicatas[i].y);
         }
         printf("\n");
     }
 
     //PRINT SE É EQUIVALENCIA
-    printf("\nRelação de equivalência: %c\n", equivalencia);
+    printf("Relação de equivalência: %c\n", equivalencia);
 
     //PRINT SE É ORDEM PARCIAL
-    printf("Relação de ordem parcial: %c\n\n", parcial);
+    printf("Relação de ordem parcial: %c\n", parcial);
 
     //PRINT O FECHO TRANSITIVO
-    printf("Fecho transitivo da relação: {");
+    printf("Fecho transitivo da relação:");
     for (int i = 0; i < quantidadeDeRelacoes; i++)
     {
-        printf("(%d, %d), ", relacoes[i].x, relacoes[i].y);
+        printf("(%d,%d); ", relacoes[i].x, relacoes[i].y);
     }
-    for (int i = 0; i < numeroDeFaltamParaSerTransitivo; i++)
+    for (int i = 0; i < numeroDeFaltamParaSerTransitivaSemDuplicatas; i++)
     {
-        if (i != numeroDeFaltamParaSerTransitivo - 1)
-        {
-            printf("(%d, %d), ", faltamParaSerTransitiva[i].x, faltamParaSerTransitiva[i].y);
-        }
-        else
-        {
-            printf("(%d, %d)", faltamParaSerTransitiva[i].x, faltamParaSerTransitiva[i].y);
-        }
+        printf("(%d,%d); ", faltamParaSerTransitivaSemDuplicatas[i].x, faltamParaSerTransitivaSemDuplicatas[i].y);
     }
-    printf("} \n");
+    printf("\n");
 
     return 0;
 }
