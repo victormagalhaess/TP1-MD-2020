@@ -199,115 +199,119 @@ int main()
     //VERIFICAR SE É ORDEM PARCIAL
     char parcial = (Reflexiva && Antisimetrica && Transitiva) ? 'V' : 'F';
 
+    FILE *ponteiroArquivoSaida;
+    ponteiroArquivoSaida = fopen("output.txt", "w");
+
     //PRINT SE É REFLEXIVA
-    printf("Reflexiva: ");
+    fprintf(ponteiroArquivoSaida, "Reflexiva: ");
     if (Reflexiva)
     {
-        printf("V\n");
+        fprintf(ponteiroArquivoSaida, "V\n");
     }
     else
     {
-        printf("F\n");
+        fprintf(ponteiroArquivoSaida, "F\n");
         for (int i = 0; i < numeroDeFaltamParaSerReflexiva; i++)
         {
-            printf("(%d,%d); ", faltaParaSerReflexiva[i].x, faltaParaSerReflexiva[i].y);
+            fprintf(ponteiroArquivoSaida, "(%d,%d); ", faltaParaSerReflexiva[i].x, faltaParaSerReflexiva[i].y);
         }
-        printf("\n");
+        fprintf(ponteiroArquivoSaida, "\n");
     }
 
     // PRINT SE É IRREFLEXIVA
-    printf("Irreflexiva: ");
+    fprintf(ponteiroArquivoSaida, "Irreflexiva: ");
     if (Irreflexiva)
     {
-        printf("V\n");
+        fprintf(ponteiroArquivoSaida, "V\n");
     }
     else
     {
-        printf("F\n");
+        fprintf(ponteiroArquivoSaida, "F\n");
         for (int i = 0; i < numeroDeFaltamParaSerIrreflexiva; i++)
         {
-            printf("(%d,%d); ", faltaParaSerIrreflexiva[i].x, faltaParaSerIrreflexiva[i].y);
+            fprintf(ponteiroArquivoSaida, "(%d,%d); ", faltaParaSerIrreflexiva[i].x, faltaParaSerIrreflexiva[i].y);
         }
-        printf("\n");
+        fprintf(ponteiroArquivoSaida, "\n");
     }
 
     //PRINT SE É SIMÉTRICA
-    printf("Simétrica: ");
+    fprintf(ponteiroArquivoSaida, "Simétrica: ");
     if (Simetrica)
     {
-        printf("V\n");
+        fprintf(ponteiroArquivoSaida, "V\n");
     }
     else
     {
-        printf("F\n");
+        fprintf(ponteiroArquivoSaida, "F\n");
         for (int i = 0; i < numeroDeFaltamParaSerSimetrica; i++)
         {
-            printf("(%d,%d); ", faltaParaSerSimetrica[i].x, faltaParaSerSimetrica[i].y);
+            fprintf(ponteiroArquivoSaida, "(%d,%d); ", faltaParaSerSimetrica[i].x, faltaParaSerSimetrica[i].y);
         }
-        printf("\n");
+        fprintf(ponteiroArquivoSaida, "\n");
     }
 
     //PRINT SE É ANTI-SIMÉTRICA
-    printf("Anti-simétrica: ");
+    fprintf(ponteiroArquivoSaida, "Anti-simétrica: ");
     if (Antisimetrica)
     {
-        printf("V\n");
+        fprintf(ponteiroArquivoSaida, "V\n");
     }
     else
     {
-        printf("F\n");
+        fprintf(ponteiroArquivoSaida, "F\n");
         for (int i = 0; i < numeroDeFaltamParaSerAntisimetrica; i++)
         {
-            printf("(%d,%d); ", faltaParaSerAntisimetrica[i].x, faltaParaSerAntisimetrica[i].y);
+            fprintf(ponteiroArquivoSaida, "(%d,%d); ", faltaParaSerAntisimetrica[i].x, faltaParaSerAntisimetrica[i].y);
         }
-        printf("\n");
+        fprintf(ponteiroArquivoSaida, "\n");
     }
 
     //PRINT SE É ASSIMÉTRICA
-    printf("Assimétrica: ");
+    fprintf(ponteiroArquivoSaida, "Assimétrica: ");
     if (Assimetrica)
     {
-        printf("V\n");
+        fprintf(ponteiroArquivoSaida, "V\n");
     }
     else
     {
-        printf("F\n"); //Removi o print dos elementos pois mudaram a saída
+        fprintf(ponteiroArquivoSaida, "F\n"); //Removi o print dos elementos pois mudaram a saída
     }
 
     //PRINT SE É TRANSITIVA
-    printf("Transitiva: ");
+    fprintf(ponteiroArquivoSaida, "Transitiva: ");
     if (Transitiva)
     {
-        printf("V\n");
+        fprintf(ponteiroArquivoSaida, "V\n");
     }
     else
     {
-        printf("F\n");
+        fprintf(ponteiroArquivoSaida, "F\n");
         for (int i = 0; i < numeroDeFaltamParaSerTransitivaSemDuplicatas; i++)
         {
-            printf("(%d,%d); ", faltamParaSerTransitivaSemDuplicatas[i].x, faltamParaSerTransitivaSemDuplicatas[i].y);
+            fprintf(ponteiroArquivoSaida, "(%d,%d); ", faltamParaSerTransitivaSemDuplicatas[i].x, faltamParaSerTransitivaSemDuplicatas[i].y);
         }
-        printf("\n");
+        fprintf(ponteiroArquivoSaida, "\n");
     }
 
     //PRINT SE É EQUIVALENCIA
-    printf("Relação de equivalência: %c\n", equivalencia);
+    fprintf(ponteiroArquivoSaida, "Relação de equivalência: %c\n", equivalencia);
 
     //PRINT SE É ORDEM PARCIAL
-    printf("Relação de ordem parcial: %c\n", parcial);
+    fprintf(ponteiroArquivoSaida, "Relação de ordem parcial: %c\n", parcial);
 
     //PRINT O FECHO TRANSITIVO
-    printf("Fecho transitivo da relação:");
+    fprintf(ponteiroArquivoSaida, "Fecho transitivo da relação:");
     for (int i = 0; i < quantidadeDeRelacoes; i++)
     {
-        printf("(%d,%d); ", relacoes[i].x, relacoes[i].y);
+        fprintf(ponteiroArquivoSaida, "(%d,%d); ", relacoes[i].x, relacoes[i].y);
     }
     for (int i = 0; i < numeroDeFaltamParaSerTransitivaSemDuplicatas; i++)
     {
-        printf("(%d,%d); ", faltamParaSerTransitivaSemDuplicatas[i].x, faltamParaSerTransitivaSemDuplicatas[i].y);
+        fprintf(ponteiroArquivoSaida, "(%d,%d); ", faltamParaSerTransitivaSemDuplicatas[i].x, faltamParaSerTransitivaSemDuplicatas[i].y);
     }
-    printf("\n");
+    fprintf(ponteiroArquivoSaida, "\n");
 
+    fclose(ponteiroArquivoSaida);
     return 0;
 }
 
